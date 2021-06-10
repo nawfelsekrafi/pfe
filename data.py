@@ -20,7 +20,6 @@ today = day_name[day]
 def get_today():
     return today
 
-
 # config
 config = {
     "apiKey": "AIzaSyBMDDOwcndSDbAzRlqYMZ4w0GWCJ_kLVHU",
@@ -37,46 +36,55 @@ storage = firebase.storage()
 
 
 def get_students_data():
-    # Connection with firebase
-    cred = credentials.Certificate('./ServiceAccountKey.json')
-    default_app = firebase_admin.initialize_app(cred, {
-        'databaseURL': 'https://backend-347db-default-rtdb.europe-west1.firebasedatabase.app/'
-    })
+    try:
+        # Connection with firebase
+        cred = credentials.Certificate('./ServiceAccountKey.json')
+        default_app = firebase_admin.initialize_app(cred, {
+            'databaseURL': 'https://backend-347db-default-rtdb.europe-west1.firebasedatabase.app/'
+        })
 
-    ref = db.reference("/")
+        ref = db.reference("/")
 
-    # post students info
-    with open("students.json", "r") as f:
-        file_contents = json.load(f)
-    ref.set(file_contents)
-    ref = db.reference("/")
+        # post students info
+        with open("students.json", "r") as f:
+            file_contents = json.load(f)
+        ref.set(file_contents)
+        ref = db.reference("/")
 
-    organ_name = "Intellect"
-    # get students info
-    students = []
-    q = ref.order_by_child("age").get()
-    for key, value in q.items():
-        # test on organization
-        for j in value["organization"]:
-            if j["name"].lower() == organ_name.lower():
-                for i in value["weeks_of_study"]:
-                    if str(i["year"]) == y and str(i["n"]) == str(w):  # and i["week"] ==
-                        for k in i["days"]:
-                            if today == k["n"]:
-                                students.append(value)
-    return students
+        organ_name = "Intellect"
+        # get students info
+        students = []
+        q = ref.order_by_child("age").get()
+        for key, value in q.items():
+            # test on organization
+            for j in value["organization"]:
+                if j["name"].lower() == organ_name.lower():
+                    for i in value["weeks_of_study"]:
+                        if str(i["year"]) == y and str(i["n"]) == str(w):  # and i["week"] ==
+                            for k in i["days"]:
+                                if today == k["n"]:
+                                    students.append(value)
+        return students
+    except:
+        print("We cant get Students data for today, Please retry or check your internet connection")
 
 
 def download_students_avatars(students):
-    for s in students:
-        print(s["name"])
-        img_title = str(s["phone_number"]) + ".jpg"
-        # download Student pics
-        path_on_cloud = "images/" + img_title
-        storage.child(path_on_cloud).download("./images/students_avatars/" + img_title)
+    try:
+        for s in students:
+            print(s["name"])
+            img_title = str(s["phone_number"]) + ".jpg"
+            # download Student pics
+            path_on_cloud = "images/" + img_title
+            storage.child(path_on_cloud).download("./images/students_avatars/" + img_title)
+    except:
+        print("We cant download Students Avatars , Please verify your internet connection.")
 
 
 def download_organization_logo(organ_name):
-    organ_logo_name = organ_name.lower() + ".jpg"
-    path_on_cloud = "logos/" + organ_logo_name
-    storage.child(path_on_cloud).download("./images/organ_logo/" + organ_logo_name)
+    try:
+        organ_logo_name = organ_name.lower() + ".jpg"
+        path_on_cloud = "logos/" + organ_logo_name
+        storage.child(path_on_cloud).download("./images/organ_logo/" + organ_logo_name)
+    except:
+        print("We cant download the Organisation Avatar , Please verify your internet connection.")

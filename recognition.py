@@ -10,13 +10,14 @@ def run(students):
         print("We dont have Students for this day")
     else:
         for s in students:
-            print(s["name"])
-            img_title = str(s["phone_number"]) + ".jpg"
+            print(students[s][0])
+            name = students[s][0]
+            img_title = str(students[s][2]) + ".jpg"
             # reconnaissance
-            student_image = face_recognition.load_image_file("images/students_avatars" + img_title)
+            student_image = face_recognition.load_image_file("images/students_avatars/" + img_title)
             student_face_encoding = face_recognition.face_encodings(student_image)[0]
             known_face_encodings.append(student_face_encoding)
-            known_face_names.append(s["name"])
+            known_face_names.append(name)
 
     # Get a reference to webcam #0 (the default one)
     video_capture = cv2.VideoCapture(0)

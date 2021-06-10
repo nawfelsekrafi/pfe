@@ -4,6 +4,9 @@ from PIL import Image, ImageTk
 from itertools import count
 import tours
 import map
+import recognition
+
+
 class ImageLabel(Label):
 
     def load(self, im):
@@ -114,8 +117,10 @@ def interface(bus_location,small_tours):
                      sorted_tour = tours.convert_to_nearest_neighbor(bus_location, small_tours[finalChoice])
                      map.map_representation(sorted_tour, bus_location)
                      print(sorted_tour)
-                     # recognition.run(dic[x]) # done but still need testing
-
+                     try:
+                        recognition.run(sorted_tour)
+                     except :
+                         print("Open the camera Please")
                      break
                  found = False
              if found == False:
