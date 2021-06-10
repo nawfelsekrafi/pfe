@@ -4,7 +4,7 @@ import webbrowser
 
 def map_representation(dic, bus_location):
     # Create map object
-    m = folium.Map(location=[33.851847795093995, 10.093554315264997], zoom_start=16)
+    m = folium.Map(location=[33.851847795093995, 10.093554315264997], zoom_start=14)
 
     # bus location marker
     logoIcon = folium.features.CustomIcon('./assets/school-bus.png', icon_size=(30, 30))
@@ -39,4 +39,4 @@ def map_representation(dic, bus_location):
     m.save('map.html')
 
     # Open Map in the browser
-    webbrowser.open('file://' + './home/nawfel/PycharmProjects/faceRecognition/map.html')
+    webbrowser.open('file://' + './home/nawfel/PycharmProjects/School-Bus-Admin-PFE-Project/map.html')

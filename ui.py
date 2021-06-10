@@ -72,7 +72,7 @@ def interface(bus_location,small_tours):
     lbl.pack()
 
     user_name = Label(root,
-                      text = "Hi, Please select a tour").pack()
+                      text = "Hi, Please select a tour: ").pack()
 
     var = IntVar()
     R1 = Radiobutton(root, text="tour 1   08:00   ==>", variable=var, value=1,
