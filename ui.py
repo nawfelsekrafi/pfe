@@ -116,7 +116,7 @@ def interface(bus_location,small_tours):
                      found = True
                      sorted_tour = tours.convert_to_nearest_neighbor(bus_location, small_tours[finalChoice])
                      map.map_representation(sorted_tour, bus_location)
-                     print(sorted_tour)
+
                      try:
                         recognition.run(sorted_tour)
                      except :

@@ -13,4 +13,5 @@ if __name__ == "__main__":
     data.download_students_avatars(students)
     data.download_organization_logo(organ_name)
     small_tours = tours.from_big_list_to_small_tours(students, data.get_today())
+    # print(small_tours)
     ui.interface(bus_location, small_tours)

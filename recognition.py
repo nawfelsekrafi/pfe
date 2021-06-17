@@ -7,13 +7,13 @@ def run(students):
     known_face_encodings = []
     known_face_names = []
     if len(students) == 0:
-        print("We dont have Students for this day")
+        print("We dont have Students for this Time")
     else:
         for s in students:
             print(students[s][0])
             name = students[s][0]
             img_title = str(students[s][2]) + ".jpg"
-            # reconnaissance
+            # reconnaissance .. initialisation
             student_image = face_recognition.load_image_file("images/students_avatars/" + img_title)
             student_face_encoding = face_recognition.face_encodings(student_image)[0]
             known_face_encodings.append(student_face_encoding)
@@ -48,7 +48,7 @@ def run(students):
             for face_encoding in face_encodings:
                 # See if the face is a match for the known face(s)
                 matches = face_recognition.compare_faces(known_face_encodings, face_encoding)
-                name = "Unknown"
+                name = "élève inconnu"
 
                 # # If a match was found in known_face_encodings, just use the first one.
                 # if True in matches:

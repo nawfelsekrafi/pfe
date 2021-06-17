@@ -60,7 +60,7 @@ def get_students_data():
             for j in value["organization"]:
                 if j["name"].lower() == organ_name.lower():
                     for i in value["weeks_of_study"]:
-                        if str(i["year"]) == y and str(i["n"]) == str(w):  # and i["week"] ==
+                        if str(i["year"]) == y and str(i["n"]) == str(w):
                             for k in i["days"]:
                                 if today == k["n"]:
                                     students.append(value)
